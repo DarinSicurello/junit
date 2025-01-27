@@ -2,13 +2,15 @@ package com.promineotech;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 import java.util.stream.Stream;
-
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class TestDemoJUnitTest {
 	
@@ -16,22 +18,23 @@ class TestDemoJUnitTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		TestDemo testDemo = new TestDemo();
+		testDemo = new TestDemo();
 	}
 
-	@ParameterizedTest
+	
 	void assertThatTwoPositiveNumbersAreAddedCorrectly() {
-		fail("Not yet implemented");
+        assertThat(testDemo.addPositive(1, 5)).isEqualTo(6);  
+        assertThat(testDemo.addPositive(4, 6)).isEqualTo(6); 
+        assertThat(testDemo.addPositive(2, 4)).isEqualTo(6); 
+        assertThat(testDemo.addPositive(7, 27)).isEqualTo(6); 
 	}
 	// Wk 12 Steps 1 -2 Throw exception is non-positive
 
-	
-
-
 	 // W 12 1-4  New  Method to assert, with exception 
-
-
-	 static void assertThatTwoPositiveNumbersAreAddedCorrectly(int a, int b, int expected, boolean expectException) {
+	@ParameterizedTest
+	@MethodSource
+	
+	 void assertThatTwoPositiveNumbersAreAddedCorrectly(int a, int b, int expected, boolean expectException) {
 	            
 	        if (!expectException) {
 			assertThat(testDemo.addPositive(a, b)).isEqualTo(expected);
@@ -42,35 +45,47 @@ class TestDemoJUnitTest {
 		            }
 		        }
 			
-			@Test
-			
-			void  (assertThatPairsPositiveNumbersAreAddedCorrectly() {
+	@Test
+	// wk 12 4A	     // W 12 1-4  testing method  
+    // Example test case
+    // wk 12 4b	
+	public void assertThatNumberSquaredIsCorrect() {
+		
+	
 	    
-	    // W 12 1-4  testing method  
-	        // Example test case
-	        assertThat(testDemo.addPositive(1, 5)).isEqualTo(6);  
-	        assertThat(testDemo.addPositive(1, 5)).isEqualTo(6); "'"
-	        assertThat(testDemo.addPositive(1, 5)).isEqualTo(6); 
-	        assertThat(testDemo.addPositive(1, 5)).isEqualTo(6); 
-	        assertThat(5, -3, 0, true);  // Expecting exception because one number is negative
-	        assertThat(0, 5, 0, true);   // Expecting exception because one number is zero
-	        assertThat(5, 3, 9, false);  // Failing test case (incorrect sum)
-	    }
-
+	
+	TestDemo mockDemo = spy(testDemo);
+	
+	doReturn(5).when(mockDemo).getRandomInt();
+	int fiveSquared = mockDemo.randomNumberSquared();
+	assertThat(fiveSquared).isEqualTo(25);
+}
+	
 	// wk 12 J 1,2,3,4  Create a static method named argumentsForAddPositive
 	public static Stream<Arguments> argumentsForAddPositive() {
-	        return Stream.arguments(argumentsForAddPositive)
+	       
+			return Stream.of(
 	                arguments(1, 2, 3, false),    // Test case 1: Expecting 1 + 2 = 3, no exception
 	                arguments(5, 3, 8, false),    // Test case 2: Expecting 5 + 3 = 8, no exception
 	                arguments(5, -3, 0, true),    // Test case 3: Expecting exception because one number is negative
 	                arguments(0, 5, 0, true),     // Test case 4: Expecting exception because one number is zero
-	                ((TestDemoJUnitTest) arguments(7, 7, 14, false))    // Test case 5: Expecting 7 + 7 = 14, no exception
-			arguments(2, 4, 6, false)
+	                arguments(7, 7, 14, false),    // Test case 5: Expecting 7 + 7 = 14, no exception
+					arguments(2, 4, 6, false)
 	        );
+	
+	}
+	
+
+
+	    public static int randomNumberSquared() {
+	        return 5 * 5;
 	    }
 
-	private static Object arguments(int i, int j, int k, boolean b) {
-		return null;
+	    
+	    public void testRandomNumberSquared() {
+	        int fiveSquared = randomNumberSquared();
+	        
+	        // Assert that fiveSquared equals 25
+	        assertThat(fiveSquared).isEqualTo(25);
+	    }
 	}
-
-	

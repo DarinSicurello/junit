@@ -13,7 +13,12 @@ public class TestDemo {
 	    }
 	    return a + b;
 	}
-
-}	
-   
-    
+	public int randomNumberSquared()  {
+		int squaredNumber = getRandomInt();
+		return (squaredNumber * squaredNumber);
+}
+	public int getRandomInt() {
+			Random random = new Random();
+			return random.nextInt(10) + 1;
+	}
+}

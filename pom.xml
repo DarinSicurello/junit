@@ -67,11 +67,6 @@
 
     </dependency>
 
-   <dependency>
-   	<groupId>com.promineotech</groupId>
-   	<artifactId>pet-parks</artifactId>
-   	<version>0.0.1-SNAPSHOT</version>
-   </dependency>
   </dependencies>
 
  
